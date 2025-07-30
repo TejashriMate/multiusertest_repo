@@ -1,0 +1,44 @@
+﻿FUNCTION_BLOCK "CM_MOT"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      Tag : String;
+   END_VAR
+
+   VAR_IN_OUT 
+      IOInterface : "IO_MOT";
+      CMInterface : "CMInterface_MOT";
+   END_VAR
+
+   VAR 
+      Device { S7_SetPoint := 'False'} : "LCFL_MonBinDrv";
+      Config { S7_SetPoint := 'False'} : "LCFL_typeConfigMonBinDrv";
+   END_VAR
+
+
+BEGIN
+	//  CM_MOT Skeleton
+	
+	// Interface to CFL module
+	#Config.tagName := #Tag;
+	#Device.enable := TRUE;
+	
+	// Set to Healthy state
+	#Device.enable :=
+	#Device.permit :=
+	#Device.interlock :=
+	#Device.protect := TRUE;
+	
+	// Map Inputs
+	#Device.forwardFeedback := #IOInterface.IN.FwdFb;
+	#Device.reverseFeedback := #IOInterface.IN.RevFb;
+	
+	// CFL module
+	#Device(configuration := #Config,
+	        interconnector := #Config.standaloneDrive);
+	
+	// Map Outputs
+	#IOInterface.OUT.FwdCmd := #Device.controlForward;
+	#IOInterface.OUT.RevCmd := #Device.controlReverse;
+END_FUNCTION_BLOCK
+

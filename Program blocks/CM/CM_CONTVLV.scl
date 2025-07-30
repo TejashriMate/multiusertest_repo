@@ -1,0 +1,46 @@
+﻿FUNCTION_BLOCK "CM_CONTVLV"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      Tag : String;
+   END_VAR
+
+   VAR_IN_OUT 
+      IOInterface : "IO_CONTVLV";
+      CMInterface : "CMInterface_CONTVLV";
+   END_VAR
+
+   VAR 
+      Device { S7_SetPoint := 'False'} : "LCFL_MonAnaVlv";
+      Config : "LCFL_typeConfigMonAnaVlv";
+   END_VAR
+
+
+BEGIN
+	//  CM_CONTVLV Skeleton
+	
+	// Interface to CFL module
+	#Config.tagName := #Tag;
+	#Device.enable := TRUE;
+	
+	// Set to Healthy state
+	#Device.enable :=
+	#Device.permit :=
+	#Device.interlock :=
+	#Device.protect := TRUE;
+	
+	// Map Inputs
+	#Device.openFeedback := #IOInterface.IN.OpenFb;
+	#Device.closeFeedback := #IOInterface.IN.ClosedFb;
+	#Device.positionFeedback := #IOInterface.IN.PositionFb;
+	
+	// CFL module
+	#Device(configuration := #Config,
+	        interconnector := #Config.standaloneDrive);
+	
+	// Map Outputs
+	#IOInterface.OUT.OpenCmd := #Device.controlOpen;
+	#IOInterface.OUT.CloseCmd := #Device.controlClose;
+	#IOInterface.OUT.PositionCmd := #Device.position;
+END_FUNCTION_BLOCK
+

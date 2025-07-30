@@ -1,0 +1,44 @@
+﻿FUNCTION_BLOCK "CM_VLV"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      Tag : String;
+   END_VAR
+
+   VAR_IN_OUT 
+      IOInterface : "IO_VLV";
+      CMInterface : "CMInterface_VLV";
+   END_VAR
+
+   VAR 
+      Device { S7_SetPoint := 'False'} : "LCFL_MonBinVlv";
+      Config : "LCFL_typeConfigMonBinVlv";
+   END_VAR
+
+
+BEGIN
+	//  CM_VLV Skeleton
+	
+	// Interface to CFL module
+	#Config.tagName := #Tag;
+	#Device.enable := TRUE;
+	
+	// Set to Healthy state
+	#Device.enable :=
+	#Device.permit :=
+	#Device.interlock :=
+	#Device.protect := TRUE;
+	
+	// Map Inputs
+	#Device.openFeedback := #IOInterface.IN.OpenFb;
+	#Device.closeFeedback := #IOInterface.IN.ClosedFb;
+	
+	// CFL module
+	#Device(configuration := #Config,
+	        interconnector := #Config.standaloneDrive);
+	
+	// Map Outputs
+	#IOInterface.OUT.OpenCmd := #Device.controlOpen;
+	#IOInterface.OUT.CloseCmd := #Device.controlClose;
+END_FUNCTION_BLOCK
+

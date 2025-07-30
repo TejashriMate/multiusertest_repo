@@ -1,0 +1,84 @@
+﻿FUNCTION_BLOCK "CMs"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      Initialise : Bool;
+   END_VAR
+
+   VAR_IN_OUT 
+      CMInterface : "CMInterface";
+      IOInterface : "IOInterface";
+   END_VAR
+
+   VAR 
+      CM_DI001 : "CM_DI";
+      CM_DO001 : "CM_DO";
+      CM_AI001 : "CM_AI";
+      CM_AO001 : "CM_AO";
+      CM_VSD001 : "CM_VSD";
+      CM_MOT001 : "CM_MOT";
+      CM_VLV001 : "CM_VLV";
+      CM_CONTVLV001 : "CM_CONTVLV";
+      CM_PID001 : "CM_PID";
+      CM_INTLK001 : "CM_INTLK4";
+      CM_INTLK002 : "CM_INTLK8";
+      ILK001 : Int;
+   END_VAR
+
+
+BEGIN
+	//  Call all the CMs
+	
+	
+	
+	
+	
+	#CM_DI001(Tag := 'DI001',
+	          IOInterface:=#IOInterface.DI_001,
+	          CMInterface:=#CMInterface.CM_DI001);
+	
+	#CM_DO001(Tag := 'DO001',
+	          IOInterface:=#IOInterface.DO_001,
+	          CMInterface:=#CMInterface.CM_DO001);
+	
+	
+	#CM_AI001(Tag := 'AI001',
+	          IOInterface := #IOInterface.AI_001,
+	          CMInterface := #CMInterface.CM_AI001);
+	
+	
+	#CM_AO001(Tag := 'AO001',
+	          IOInterface := #IOInterface.AO_001,
+	          CMInterface := #CMInterface.CM_AO001);
+	
+	#CM_VSD001(Tag := 'VSD001',
+	           IOInterface := #IOInterface.VSD_001,
+	           CMInterface := #CMInterface.CM_VSD001);
+	
+	
+	#CM_MOT001(Tag := 'MOT001',
+	           IOInterface := #IOInterface.MOT_001,
+	           CMInterface:=#CMInterface.CM_MOT001);
+	
+	
+	#CM_VLV001(Tag := 'VLV001',
+	           IOInterface := #IOInterface.VLV_001,
+	           CMInterface := #CMInterface.CM_VLV001);
+	
+	
+	#CM_CONTVLV001(Tag := 'CONTVLV001',
+	               IOInterface := #IOInterface.CONTVLV_001,
+	               CMInterface := #CMInterface.CM_CONTVLV001);
+	
+	
+	#CM_PID001(Tag := 'PID001');
+	
+	
+	#CM_INTLK001(Tag := 'INTLK001',ILK := #ILK001);
+	
+	#CM_INTLK002(Tag := 'INTLK002');
+	
+	
+	
+END_FUNCTION_BLOCK
+

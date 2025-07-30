@@ -1,0 +1,33 @@
+﻿FUNCTION_BLOCK "CM_AI"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      Tag : String;
+   END_VAR
+
+   VAR_IN_OUT 
+      IOInterface : "IO_AI";
+      CMInterface : "CMInterface_AI";
+   END_VAR
+
+   VAR 
+      Device { S7_SetPoint := 'False'} : "LCFL_AnaMon";
+      Config : "LCFL_typeConfigAnaMon";
+   END_VAR
+
+
+BEGIN
+	//  CM_AI Skeleton
+	
+	// Interface to CFL module
+	#Config.tagName := #Tag;
+	#Device.enable := TRUE;
+	
+	// Map Inputs
+	#Device.value := #IOInterface.IN.ValueIn;
+	
+	// CFL module
+	#Device(configuration := #Config);
+	
+END_FUNCTION_BLOCK
+

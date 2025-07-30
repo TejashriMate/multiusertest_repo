@@ -1,0 +1,33 @@
+﻿FUNCTION_BLOCK "CM_DI"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      Tag : String;
+   END_VAR
+
+   VAR_IN_OUT 
+      IOInterface : "IO_DI";
+      CMInterface : "CMInterface_DI";
+   END_VAR
+
+   VAR 
+      Device { S7_SetPoint := 'False'} : "LCFL_BinMon";
+      Config : "LCFL_typeConfigBinMon";
+   END_VAR
+
+
+BEGIN
+	//  CM_DI Skeleton
+	
+	// Interface to CFL module
+	#Config.tagName := #Tag;
+	#Device.enable := TRUE;
+	
+	// Map Inputs
+	#Device.value := #IOInterface.IN.Input;
+	
+	// CFL module
+	#Device(configuration := #Config);
+	
+END_FUNCTION_BLOCK
+

@@ -1,0 +1,24 @@
+﻿FUNCTION_BLOCK "CM_INTLK8"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      Tag : String;
+   END_VAR
+
+   VAR 
+      Device { S7_SetPoint := 'False'} : "LCFL_LockView8";
+      Config : "LCFL_typeConfigLockView8";
+   END_VAR
+
+
+BEGIN
+	//  CM_INTLK8 Skeleton
+	
+	// Interface to CFL module
+	#Config.tagName := #Tag;
+	#Device.enable := TRUE;
+	
+	// CFL module
+	#Device(configuration := #Config);
+END_FUNCTION_BLOCK
+

@@ -1,0 +1,33 @@
+﻿FUNCTION_BLOCK "CM_PID"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      Tag : String;
+      P_SP : Real;
+      I_SP : Real;
+      D_SP : Real;
+      PV_SP : Real;
+   END_VAR
+
+   VAR_OUTPUT 
+      CV_SP : Real;
+   END_VAR
+
+   VAR 
+      Device { S7_SetPoint := 'False'} : "LCFL_PIDCtrl";
+      Config : "LCFL_typeConfigPIDCtrl";
+   END_VAR
+
+
+BEGIN
+	//  CM_PID Skeleton
+	
+	// Interface to CFL module
+	#Config.tagName := #Tag;
+	#Device.enable := TRUE;
+	
+	// CFL module
+	#Device(configuration := #Config);
+	
+END_FUNCTION_BLOCK
+

@@ -1,0 +1,48 @@
+﻿FUNCTION_BLOCK "CM_VSD"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      Tag : String;
+   END_VAR
+
+   VAR_IN_OUT 
+      IOInterface : "IO_VSD";
+      CMInterface : "CMInterface_VSD";
+   END_VAR
+
+   VAR 
+      Device { S7_SetPoint := 'False'} : "LCFL_MonAnaDrv";
+      Config : "LCFL_typeConfigMonAnaDrv";
+   END_VAR
+
+
+BEGIN
+	//  CM_VSD Skeleton
+	
+	// Interface to CFL module
+	#Config.tagName := #Tag;
+	#Device.enable := TRUE;
+	
+	// Set to Healthy state
+	#Device.enable :=
+	#Device.permit :=
+	#Device.interlock :=
+	#Device.protect := TRUE;
+	
+	// Map Inputs
+	#Device.forwardFeedback := #IOInterface.IN.FwdFb;
+	#Device.reverseFeedback := #IOInterface.IN.RevFb;
+	#Device.trip := #IOInterface.IN.Trip;
+	#Device.revolutionSpeedFeedback := #IOInterface.IN.SpeedFb;
+	
+	// CFL module
+	#Device(configuration := #Config,
+	        interconnector := #Config.standaloneDrive);
+	
+	// Map Outputs
+	#IOInterface.OUT.FwdCmd := #Device.controlForward;
+	#IOInterface.OUT.RevCmd := #Device.controlReverse;
+	#IOInterface.OUT.SpeedCmd := #Device.revolutionSpeed;
+	
+END_FUNCTION_BLOCK
+

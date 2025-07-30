@@ -1,0 +1,32 @@
+﻿FUNCTION_BLOCK "CM_AO"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      Tag : String;
+   END_VAR
+
+   VAR_IN_OUT 
+      IOInterface : "IO_AO";
+      CMInterface : "CMInterface_AO";
+   END_VAR
+
+   VAR 
+      Device { S7_SetPoint := 'False'} : "LCFL_AnaManInt";
+      Config : "LCFL_typeConfigAnaManInt";
+   END_VAR
+
+
+BEGIN
+	//  CM_AO Skeleton
+	
+	// Interface to CFL module
+	#Config.tagName := #Tag;
+	#Device.enable := TRUE;
+	
+	// CFL module
+	#Device(configuration := #Config);
+	
+	// Map Outputs
+	#IOInterface.OUT.ValueOut := #Device.valueOut;
+END_FUNCTION_BLOCK
+

@@ -1,0 +1,62 @@
+﻿FUNCTION_BLOCK "MapInputs"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      Simulate : Bool;
+   END_VAR
+
+   VAR_IN_OUT 
+      IO : "IOInterface";
+   END_VAR
+
+
+BEGIN
+	//-------------------------------------------------------------------------------------------------
+	// Title: MapInputs
+	// Version: V1.0
+	// Date: 26 March 2025
+	// Company: Cytiva
+	// Author: RON
+	//
+	// Description: Map IO Inputs from hardware to IO Interface
+	//
+	//
+	
+	IF NOT (#Simulate) THEN
+	    // DI
+	    #IO.DI_001.IN.Input := "HardwareIO".DigitalInputs.DI001_Input;
+	    
+	    // AI
+	    #IO.AI_001.IN.ValueIn := "HardwareIO".AnalogueInputs.AI001_Value;
+	    
+	    // VSD001
+	    #IO.VSD_001.IN.FwdFb := "HardwareIO".DigitalInputs.VSD001_ForewardFB;
+	    #IO.VSD_001.IN.RevFb := "HardwareIO".DigitalInputs.VSD001_ReverseFB;
+	    #IO.VSD_001.IN.Trip := "HardwareIO".DigitalInputs.VSD001_TripFB;
+	    #IO.VSD_001.IN.SpeedFb := "HardwareIO".AnalogueInputs.VSD001_SpeedFB;
+	    
+	    // MOT001
+	    #IO.MOT_001.IN.FwdFb := "HardwareIO".DigitalInputs.MOT001_ForewardFB;
+	    #IO.MOT_001.IN.RevFb := "HardwareIO".DigitalInputs.MOT001_ReverseFB;
+	    #IO.MOT_001.IN.Trip := "HardwareIO".DigitalInputs.MOT001_TripFB;
+	    
+	    // VLV001
+	    #IO.VLV_001.IN.OpenFb := "HardwareIO".DigitalInputs.VLV001_OpenFB;
+	    #IO.VLV_001.IN.ClosedFb := "HardwareIO".DigitalInputs.VLV001_ClosedFB;
+	    #IO.VLV_001.IN.Fault := "HardwareIO".DigitalInputs.VLV001_Fault;
+	    
+	    // CONTVLV001
+	    #IO.CONTVLV_001.IN.OpenFb := "HardwareIO".DigitalInputs.CONTVLV001_OpenFB;
+	    #IO.CONTVLV_001.IN.ClosedFb := "HardwareIO".DigitalInputs.CONTVLV001_ClosedFB;
+	    #IO.CONTVLV_001.IN.Fault := "HardwareIO".DigitalInputs.CONTVLV001_Fault;
+	    #IO.CONTVLV_001.IN.PositionFb := "HardwareIO".AnalogueInputs.CONTVLV001_PositionFB;
+	END_IF;
+	
+	
+	
+	
+	
+	
+	
+END_FUNCTION_BLOCK
+

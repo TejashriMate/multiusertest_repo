@@ -1,0 +1,54 @@
+﻿FUNCTION_BLOCK "Simulate"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      Simulate : Bool;
+   END_VAR
+
+   VAR_IN_OUT 
+      IO : "IOInterface";
+   END_VAR
+
+
+BEGIN
+	// Simulation of Hardware IO
+	
+	
+	IF #Simulate THEN
+	    // VSD001
+	    // "HardwareIO".DigitalInputs.VSD001_ForewardFB := "HardwareIO".DigitalOutputs.VSD001_ForwardCmd;
+	    // "HardwareIO".DigitalInputs.VSD001_ReverseFB := "HardwareIO".DigitalOutputs.VSD001_ReverseCmd;
+	    // "HardwareIO".DigitalInputs.VSD001_TripFB := TRUE;
+	    // "HardwareIO".AnalogueInputs.VSD001_SpeedFB := "HardwareIO".AnalogueOutputs.VSD001_SpeedCmd;
+	    
+	    #IO.VSD_001.IN.FwdFb := #IO.VSD_001.OUT.FwdCmd;
+	    #IO.VSD_001.IN.RevFb := #IO.VSD_001.OUT.RevCmd;
+	    #IO.VSD_001.IN.Trip := TRUE;
+	    #IO.VSD_001.IN.SpeedFb := #IO.VSD_001.OUT.SpeedCmd;
+	    
+	    // MOT001
+	    // "HardwareIO".DigitalInputs.MOT001_ForewardFB := "HardwareIO".DigitalOutputs.MOT001_ForwardCmd;
+	    // "HardwareIO".DigitalInputs.MOT001_ReverseFB := "HardwareIO".DigitalOutputs.MOT001_ReverseCmd;
+	    
+	    #IO.MOT_001.IN.FwdFb := #IO.MOT_001.OUT.FwdCmd;
+	    #IO.MOT_001.IN.RevFb := #IO.MOT_001.OUT.RevCmd;
+	    
+	    // VLV001
+	    // "HardwareIO".DigitalInputs.VLV001_OpenFB := "HardwareIO".DigitalOutputs.VLV001_OpenCmd;
+	    // "HardwareIO".DigitalInputs.VLV001_ClosedFB := "HardwareIO".DigitalOutputs.VLV001_CloseCmd;
+	    
+	    #IO.VLV_001.IN.OpenFb := #IO.VLV_001.OUT.OpenCmd;
+	    #IO.VLV_001.IN.ClosedFb := #IO.VLV_001.OUT.CloseCmd;
+	    
+	    // CONTVLV001
+	    // "HardwareIO".DigitalInputs.CONTVLV001_OpenFB := "HardwareIO".DigitalOutputs.CONTVLV001_OpenCmd;
+	    // "HardwareIO".DigitalInputs.CONTVLV001_ClosedFB := "HardwareIO".DigitalOutputs.CONTVLV001_CloseCmd;
+	    // "HardwareIO".AnalogueInputs.CONTVLV001_PositionFB := "HardwareIO".AnalogueOutputs.CONTVLV001_PositionCmd;
+	    
+	    #IO.CONTVLV_001.IN.OpenFb := #IO.CONTVLV_001.OUT.OpenCmd;
+	    #IO.CONTVLV_001.IN.ClosedFb := #IO.CONTVLV_001.OUT.CloseCmd;
+	    #IO.CONTVLV_001.IN.PositionFb := #IO.CONTVLV_001.OUT.PositionCmd;
+	END_IF;
+	
+END_FUNCTION_BLOCK
+

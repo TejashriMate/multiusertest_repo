@@ -1,0 +1,32 @@
+﻿FUNCTION_BLOCK "CM_DO"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      Tag : String;
+   END_VAR
+
+   VAR_IN_OUT 
+      IOInterface : "IO_DO";
+      CMInterface : "CMInterface_DO";
+   END_VAR
+
+   VAR 
+      Device { S7_SetPoint := 'False'} : "LCFL_BinManInt";
+      Config : "LCFL_typeConfigBinManInt";
+   END_VAR
+
+
+BEGIN
+	//  CM_DO Skeleton
+	
+	// Interface to CFL module
+	#Config.tagName := #Tag;
+	#Device.enable := TRUE;
+	
+	// CFL module
+	#Device(configuration := #Config);
+	
+	// Map Outputs
+	#IOInterface.OUT.Output := #Device.valueOut;
+END_FUNCTION_BLOCK
+

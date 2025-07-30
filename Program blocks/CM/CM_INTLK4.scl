@@ -1,0 +1,36 @@
+﻿FUNCTION_BLOCK "CM_INTLK4"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      Tag : String;
+      ILK { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Int;
+   END_VAR
+
+   VAR_OUTPUT 
+      ILK_out : Bool;
+   END_VAR
+
+   VAR 
+      Device { S7_SetPoint := 'False'} : "LCFL_LockView4";
+      Config : "LCFL_typeConfigLockView4";
+   END_VAR
+
+
+BEGIN
+	//  CM_INTLK4 Skeleton
+	
+	// Interface to CFL module
+	#Config.tagName := #Tag;
+	#Device.enable := TRUE;
+	
+	#Device.in1 := #ILK.%X0;
+	#Device.in2 := #ILK.%X1;
+	#Device.in3 := #ILK.%X2;
+	#Device.in4 := #ILK.%X3;
+	
+	// CFL module
+	#Device(configuration := #Config);
+	
+	#ILK_out := #Device.out;
+END_FUNCTION_BLOCK
+

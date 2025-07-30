@@ -1,0 +1,37 @@
+﻿FUNCTION_BLOCK "UnitModule"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR 
+      IOInterface { S7_SetPoint := 'False'} : "IOInterface";
+      CMInterface { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'; S7_SetPoint := 'False'} : "CMInterface";
+      CM { S7_SetPoint := 'False'} : "CMs";
+      Sim { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'; S7_SetPoint := 'False'} : "Simulate";
+      Inputs { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'; S7_SetPoint := 'False'} : "MapInputs";
+      Outputs { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'; S7_SetPoint := 'False'} : "MapOutputs";
+      Simulate { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'} : Bool;
+   END_VAR
+
+
+BEGIN
+	// Unit Module
+	// Description: Calls ALL other software modules
+	
+	#Simulate := TRUE;
+	
+	#Inputs(Simulate:=#Simulate,
+	        IO := #IOInterface);
+	
+	#CM(Initialise := "FirstScan",
+	    IOInterface := #IOInterface,
+	    CMInterface := #CMInterface);
+	
+	
+	#Sim(Simulate := #Simulate,
+	     IO:=#IOInterface);
+	
+	
+	#Outputs(Simulate:=#Simulate,
+	         IO := #IOInterface);
+	
+END_FUNCTION_BLOCK
+

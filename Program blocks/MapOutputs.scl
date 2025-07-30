@@ -1,0 +1,60 @@
+﻿FUNCTION_BLOCK "MapOutputs"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      Simulate : Bool;
+   END_VAR
+
+   VAR_IN_OUT 
+      IO : "IOInterface";
+   END_VAR
+
+
+BEGIN
+	//-------------------------------------------------------------------------------------------------
+	// Title: MapOutputs
+	// Version: V1.0
+	// Date: 26 March 2025
+	// Company: Cytiva
+	// Author: RON
+	//
+	// Description: Map IO Outputs from IO Interface to hardware
+	//
+	//---------------
+	
+	IF NOT (#Simulate) THEN
+	    // DO
+	    "HardwareIO".DigitalOutputs.DO001_Output := #IO.DO_001.OUT.Output;
+	    
+	    // AO
+	    "HardwareIO".AnalogueOutputs.AO001_Value := #IO.AO_001.OUT.ValueOut;
+	    
+	    // VSD001
+	    "HardwareIO".DigitalOutputs.VSD001_ForwardCmd := #IO.VSD_001.OUT.FwdCmd;
+	    "HardwareIO".DigitalOutputs.VSD001_ReverseCmd := #IO.VSD_001.OUT.RevCmd;
+	    "HardwareIO".AnalogueOutputs.VSD001_SpeedCmd := #IO.VSD_001.OUT.SpeedCmd;
+	    
+	    // MOT001
+	    "HardwareIO".DigitalOutputs.MOT001_ForwardCmd := #IO.MOT_001.OUT.FwdCmd;
+	    "HardwareIO".DigitalOutputs.MOT001_ReverseCmd := #IO.MOT_001.OUT.RevCmd;
+	    
+	    // VLV001
+	    "HardwareIO".DigitalOutputs.VLV001_OpenCmd := #IO.VLV_001.OUT.OpenCmd;
+	    "HardwareIO".DigitalOutputs.VLV001_CloseCmd := #IO.VLV_001.OUT.CloseCmd;
+	    
+	    // CONTVLV001
+	    "HardwareIO".DigitalOutputs.CONTVLV001_OpenCmd := #IO.CONTVLV_001.OUT.OpenCmd;
+	    "HardwareIO".DigitalOutputs.CONTVLV001_CloseCmd := #IO.CONTVLV_001.OUT.CloseCmd;
+	    "HardwareIO".AnalogueOutputs.CONTVLV001_PositionCmd := #IO.CONTVLV_001.OUT.PositionCmd;
+	END_IF;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+END_FUNCTION_BLOCK
+
